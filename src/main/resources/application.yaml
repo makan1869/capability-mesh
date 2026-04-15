@@ -1,3 +1,22 @@
 spring:
   application:
     name: capability-mesh
+  ai:
+    bedrock:
+      aws:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+        region: eu-central-1
+      converse:
+        chat:
+          options:
+            temperature: 0.7
+            maxTokens: 2048
+            model: "eu.anthropic.claude-opus-4-6-v1"
+mesh:
+  brave:
+    search:
+      api-key: ${BRAVE_SEARCH_API_KEY}
+agent:
+  skills:
+    dirs: "classpath:/skills"

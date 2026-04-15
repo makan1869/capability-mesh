@@ -38,3 +38,4 @@ out/
 
 ### MCP Servers ###
 .mcp.json
+src/main/resources/application.local.yaml

@@ -16,12 +16,32 @@ java {
 
 repositories {
     mavenCentral()
+    // Spring AI milestones (needed for some pre-release artifacts)
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+ext {
+    set('springAiVersion', "2.0.0-M4")
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Anthropic (Claude) chat via Spring AI
+    implementation 'org.springframework.ai:spring-ai-starter-model-bedrock-converse'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'org.springaicommunity:spring-ai-agent-utils:0.6.0'
 }
 
 tasks.named('test') {
