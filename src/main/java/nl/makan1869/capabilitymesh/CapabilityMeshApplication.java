@@ -26,47 +26,53 @@ public class CapabilityMeshApplication {
 
         return args -> {
 
-            ChatClient chatClient = chatClientBuilder // @formatter:off
-                    .defaultSystem("Always use the available skills to assist the user in their requests.")
-
-                    // Skills tool
-                    .defaultToolCallbacks(SkillsTool.builder().addSkillsResources(agentSkillsDirs).build())
-
-                    // Built-in tools
-                    .defaultTools(
-                            //Bash execution tool
-                            ShellTools.builder().build(),// built-in shell tools
-                            // Read, Write and Edit files tool
-                            FileSystemTools.builder().build(),// built-in file system tools
-                            // Smart web fetch tool
-                            SmartWebFetchTool.builder(chatClientBuilder.clone().build()).build(),
-                            // Brave web search tool
-                            BraveWebSearchTool.builder(braveAPIKey)
-                                    .resultCount(1).build())
-
-
-                    .defaultAdvisors(
-                            // Tool Calling advisor
-                            ToolCallAdvisor.builder().build(),
-                            // Custom logging advisor
-                            MyLoggingAdvisor.builder()
-                                    .showAvailableTools(false)
-                                    .showSystemMessage(false)
-                                    .build())
-                    .build();
+//            ChatClient chatClient = chatClientBuilder // @formatter:off
+//                    .defaultSystem("Always use the available skills to assist the user in their requests.")
+//
+//                    // Skills tool
+//                    .defaultToolCallbacks(SkillsTool.builder().addSkillsResources(agentSkillsDirs).build())
+//
+//                    // Built-in tools
+//                    .defaultTools(
+//                            //Bash execution tool
+//                            ShellTools.builder().build(),// built-in shell tools
+//                            // Read, Write and Edit files tool
+//                            FileSystemTools.builder().build(),// built-in file system tools
+//                            // Smart web fetch tool
+//                            SmartWebFetchTool.builder(chatClientBuilder.clone().build()).build(),
+//                            // Brave web search tool
+//                            BraveWebSearchTool.builder(braveAPIKey)
+//                                    .resultCount(1).build())
+//
+//
+//                    .defaultAdvisors(
+//                            // Tool Calling advisor
+//                            ToolCallAdvisor.builder().build(),
+//                            // Custom logging advisor
+//                            MyLoggingAdvisor.builder()
+//                                    .showAvailableTools(false)
+//                                    .showSystemMessage(false)
+//                                    .build())
+//                    .build();
             // @formatter:on
 
-            var answer = chatClient
-                    .prompt("""
-					Explain reinforcement learning in simple terms and use.
-					Use required skills.
-					Then use the Youtube video https://youtu.be/vXtfdGphr3c?si=xy8U2Al_Um5vE4Jd transcript to support your answer.
-					Use absolute paths for the skills and scripts. Do not ask me for more details.
-					""")
-                    .call()
-                    .content();
+//            var answer = chatClient
+//                    .prompt("""
+//					Explain reinforcement learning in simple terms and use.
+//					Use required skills.
+//					Then use the Youtube video https://youtu.be/vXtfdGphr3c?si=xy8U2Al_Um5vE4Jd transcript to support your answer.
+//					Use absolute paths for the skills and scripts. Do not ask me for more details.
+//					""")
+//                    .call()
+//                    .content();
 
-            System.out.println("The Answer: " + answer);
+//            String answer = chatClient.prompt()
+//                    .user("Review this controller class for best practices: " +
+//                            "src/main/java/nl/makan1869/capabilitymesh/MyLoggingAdvisor.java")
+//                    .call()
+//                    .content();
+//
+//            System.out.println("The Answer: " + answer);
         };
 
     }
