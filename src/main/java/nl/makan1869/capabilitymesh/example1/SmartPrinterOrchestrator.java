@@ -35,7 +35,9 @@ public class SmartPrinterOrchestrator {
             "http://localhost:8080/api/agents/printer-b",
             "http://localhost:8080/api/agents/printer-c",
             "http://localhost:8080/api/agents/printer-d",
-            "http://localhost:8080/api/agents/printer-e"
+            "http://localhost:8080/api/agents/printer-e",
+            "http://localhost:8080/api/agents/printer-smart"
+
     );
 
     private final RestClient restClient = RestClient.create();
@@ -46,9 +48,12 @@ public class SmartPrinterOrchestrator {
     }
 
     /**
-     * Structured output type: the LLM returns an ordered list of agent URLs to invoke.
+     * Structured output type: the LLM returns an ordered list of invocations, each
+     * naming the agent URL to call and the letter it should be asked to produce.
      */
-    record AgentSelection(List<String> agentUrls) {}
+    record AgentInvocation(String agentUrl, String letter) {}
+
+    record AgentSelection(List<AgentInvocation> invocations) {}
 
     @Bean
     @Order(2)
@@ -72,8 +77,15 @@ public class SmartPrinterOrchestrator {
             String prompt = """
                     You are an agent orchestrator. Your goal is to produce the string "%s" by selecting
                     agents from the list below and invoking them in the correct order.
-                    Each agent prints exactly one letter when called.
-                    Return only the ordered list of agent URLs needed — no extras, no duplicates unless the target requires them.
+
+                    Most agents are dedicated to one fixed letter and print that letter regardless of
+                    what you ask for. The Smart Printer Agent can produce whichever single uppercase
+                    letter you tell it to — prefer a dedicated agent when one exists for a letter, and
+                    use the Smart Printer Agent only for letters that have no dedicated agent.
+
+                    For each position in the target string, return the agent URL to call and the single
+                    uppercase letter you are asking it to produce. No extras, no duplicates unless the
+                    target requires them.
 
                     Available agents:
                     %s
@@ -84,21 +96,21 @@ public class SmartPrinterOrchestrator {
                     .call()
                     .entity(AgentSelection.class);
 
-            System.out.printf("[SmartOrchestrator] LLM selected %d/%d agents: %s%n",
-                    selection.agentUrls().size(), ALL_AGENT_URLS.size(), selection.agentUrls());
+            System.out.printf("[SmartOrchestrator] LLM selected %d invocations: %s%n",
+                    selection.invocations().size(), selection.invocations());
 
             // Step 3: invoke selected agents in LLM-determined order
             StringBuilder result = new StringBuilder();
-            for (String agentUrl : selection.agentUrls()) {
+            for (AgentInvocation invocation : selection.invocations()) {
                 String taskId = UUID.randomUUID().toString();
                 JsonRpcRequest<TaskSendParams> rpcRequest = JsonRpcRequest.of(
                         taskId,
                         "tasks/send",
-                        new TaskSendParams(taskId, TaskMessage.user("print"))
+                        new TaskSendParams(taskId, TaskMessage.user(invocation.letter()))
                 );
 
                 JsonRpcResponse<TaskResult> rpcResponse = restClient.post()
-                        .uri(agentUrl)
+                        .uri(invocation.agentUrl())
                         .body(rpcRequest)
                         .retrieve()
                         .body(new ParameterizedTypeReference<>() {});
