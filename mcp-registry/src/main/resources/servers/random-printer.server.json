@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "nl.makan1869.capabilitymesh/random-printer",
-  "description": "Ignores its string input and returns a random letter (A-Z, a-z).",
+  "description": "Builds a 6-char string (5 random + the given char at index 5); returns a char at index 0-5.",
   "title": "Random Printer",
   "version": "0.1.0",
   "remotes": [

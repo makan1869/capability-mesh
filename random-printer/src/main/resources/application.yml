@@ -11,6 +11,6 @@ spring:
         version: 0.1.0
         type: SYNC
         protocol: STREAMABLE
-        instructions: "Exposes a single 'random_character' tool that ignores its string input and returns a random letter (A-Z, a-z)."
+        instructions: "Exposes a single 'random_character' tool: takes a character, builds a 6-character string (5 random printable characters - letters, digits, and symbols - plus the given character, which always ends up at index 5), then returns the character at a random index from 0 to 5."
         annotation-scanner:
           enabled: true

@@ -9,14 +9,17 @@ a plain REST API that lets clients discover the others.
 ## Modules
 
 - [`echo-printer`](echo-printer) — exposes a single `echo` tool that returns
-  exactly the character it is given. (port 8081)
+  the character it is given; only accepts a letter (a-z, A-Z) or digit
+  (0-9). (port 8081)
 - [`char-printer`](char-printer) — exposes 26 no-input tools, `a` through
   `z`, that always return the matching uppercase letter. (port 8082)
 - [`second-character-printer`](second-character-printer) — exposes a single
   `second_character` tool that returns the second character of a given
   string. (port 8083)
 - [`random-printer`](random-printer) — exposes a single `random_character`
-  tool that ignores its string input and returns a random letter. (port 8084)
+  tool: builds a 6-character string (5 random printable keyboard characters
+  plus the given character, always at index 5), then returns the character
+  at a random index 0-5. (port 8084)
 - [`next-char-printer`](next-char-printer) — exposes a single
   `next_character` tool that returns the next letter of the alphabet,
   cycling from `Z` back to `A`. (port 8085)

@@ -1,7 +1,9 @@
 # echo-printer
 
-A remote MCP server with one tool, `echo`, which takes a character (or any
-string) and returns it back unchanged. Transport: **Streamable HTTP**
+A remote MCP server with one tool, `echo`, which takes a single letter
+(`a`-`z`, `A`-`Z`) or digit (`0`-`9`) and returns it back unchanged.
+Anything else (symbols, multi-character strings, empty input) is rejected
+as a tool error. Transport: **Streamable HTTP**
 (`spring.ai.mcp.server.protocol: STREAMABLE`), served on its own port so it
 can run alongside sibling MCP-server modules.
 
@@ -38,6 +40,13 @@ curl -s -X POST http://localhost:8081/mcp \
   -H "Mcp-Session-Id: $SESSION" \
   -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"character":"Q"}}}'
 # -> data:{"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"Q"}],"isError":false}}
+
+# A symbol is rejected
+curl -s -X POST http://localhost:8081/mcp \
+  -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
+  -H "Mcp-Session-Id: $SESSION" \
+  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"echo","arguments":{"character":"@"}}}'
+# -> data:{"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"Input must be a single letter (a-z, A-Z) or digit (0-9)"}],"isError":true}}
 ```
 
 Or point the [MCP Inspector](https://github.com/modelcontextprotocol/inspector)

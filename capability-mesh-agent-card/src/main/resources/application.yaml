@@ -1,14 +1,15 @@
 spring:
   application:
-    name: capability-mesh
+    name: capability-mesh-agent-card
   ai:
     anthropic:
       api-key: ${ANTHROPIC_API_KEY}
       chat:
-        options:
-          temperature: 0.7
-          max-tokens: 2048
-          model: "claude-opus-4-6"
+        # Spring AI 2.0.1 binds these directly under "chat", not "chat.options" (the
+        # original Gradle project targeted 2.0.0-M4, where that nesting was used).
+        temperature: 0.7
+        max-tokens: 2048
+        model: "claude-opus-4-6"
 agent:
   skills:
     dirs: "classpath:/skills"

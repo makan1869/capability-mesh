@@ -7,8 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class EchoTools {
 
-    @McpTool(name = "echo", description = "Echoes back exactly the character it is given")
-    public String echo(@McpToolParam(description = "The character to echo back", required = true) String character) {
+    @McpTool(
+            name = "echo",
+            description = "Echoes back the character it is given. Only accepts a single letter (a-z, A-Z) or digit (0-9).")
+    public String echo(
+            @McpToolParam(description = "A single letter (a-z, A-Z) or digit (0-9)", required = true)
+                    String character) {
+        if (character == null || !character.matches("[a-zA-Z0-9]")) {
+            throw new IllegalArgumentException("Input must be a single letter (a-z, A-Z) or digit (0-9)");
+        }
         return character;
     }
 }

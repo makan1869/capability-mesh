@@ -24,28 +24,36 @@ import org.springframework.stereotype.Component;
 /**
  * On startup: discovers every MCP server registered in mcp-registry, opens a live MCP
  * client to each, hands the model their combined tool set, and asks it to perform the
- * configured print task (see TASK) - e.g. digits only come out of echo-printer's
- * unrestricted echo tool, since every other tool only emits letters.
+ * configured print task (see TASK). Note each tool's real constraints: echo only
+ * accepts/emits a letter or digit (a-z, A-Z, 0-9). second_character has no character
+ * restriction at all - given any string of length >= 2, it deterministically returns
+ * whatever is at index 1, so it can reliably produce a symbol (e.g. second_character
+ * on "X@" returns "@"). random_character can also produce a symbol via its random
+ * prefix, but only probabilistically.
  */
 @Component
 public class PrintTextRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(PrintTextRunner.class);
-    private static final String TASK = "Print ABC02";
+    private static final String TASK = "Print ABC02+";
 
     /**
      * Without this, the model tends to call tools for the letters it has a dedicated
      * tool for (a/b/c) and then just type any remaining characters (e.g. digits)
      * itself, since nothing stops it from answering directly. This forces every
-     * character through a tool call, and points it at "echo" for anything that has
-     * no dedicated per-character tool.
+     * character through a tool call, without naming which tool handles which
+     * character - deliberately, so the model has to reason about which of its
+     * available tools (by their own descriptions) can be repurposed to produce a
+     * character that has no dedicated tool, rather than being told the answer.
      */
     private static final String SYSTEM_INSTRUCTIONS =
             """
-            You have a set of single-character "printer" tools. Most return one fixed
-            letter (e.g. a tool named "a" always returns 'A'). The "echo" tool is
-            different: it returns whatever single character you pass it, including
-            digits - use it for any character that has no dedicated tool of its own.
+            You have a set of "printer" tools, each described by its own tool
+            definition. Some return one fixed character regardless of input. Others
+            accept a string input and derive their output from it - read each tool's
+            description carefully, since a tool built for one purpose may still be
+            usable to produce a character that has no tool dedicated to it, if you
+            construct its input thoughtfully.
 
             To complete the user's task, call exactly one tool per character of the
             requested text, in order, and build the final answer only from those tool

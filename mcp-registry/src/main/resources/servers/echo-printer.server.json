@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "nl.makan1869.capabilitymesh/echo-printer",
-  "description": "Echoes back exactly the character it is given.",
+  "description": "Echoes back a letter or digit (a-z, A-Z, 0-9) it is given.",
   "title": "Echo Printer",
   "version": "0.1.0",
   "remotes": [

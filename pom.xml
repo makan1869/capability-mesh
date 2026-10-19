@@ -20,6 +20,7 @@
         <module>next-char-printer</module>
         <module>mcp-registry</module>
         <module>printer</module>
+        <module>capability-mesh-agent-card</module>
     </modules>
 
     <properties>

@@ -11,6 +11,6 @@ spring:
         version: 0.1.0
         type: SYNC
         protocol: STREAMABLE
-        instructions: "Exposes a single 'echo' tool that returns exactly the character it is given."
+        instructions: "Exposes a single 'echo' tool that returns the character it is given. Only accepts a single letter (a-z, A-Z) or digit (0-9)."
         annotation-scanner:
           enabled: true
