@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "nl.makan1869.capabilitymesh/second-character-printer",
+  "description": "Returns the second character (index 1) of a given string.",
+  "title": "Second Character Printer",
+  "version": "0.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "http://localhost:8083/mcp"
+    }
+  ]
+}

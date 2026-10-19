@@ -1,0 +1,16 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: next-char-printer
+  ai:
+    mcp:
+      server:
+        name: next-char-printer
+        version: 0.1.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: "Exposes a single 'next_character' tool that returns the next letter of the alphabet, cycling from 'Z' back to 'A' (and 'z' back to 'a')."
+        annotation-scanner:
+          enabled: true

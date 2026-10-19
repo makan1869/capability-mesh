@@ -1,0 +1,8 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: mcp-registry
+  jackson:
+    default-property-inclusion: non_null

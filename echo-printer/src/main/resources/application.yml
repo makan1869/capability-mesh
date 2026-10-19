@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: echo-printer
+  ai:
+    mcp:
+      server:
+        name: echo-printer
+        version: 0.1.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: "Exposes a single 'echo' tool that returns exactly the character it is given."
+        annotation-scanner:
+          enabled: true

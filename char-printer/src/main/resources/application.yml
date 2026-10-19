@@ -1,0 +1,16 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: char-printer
+  ai:
+    mcp:
+      server:
+        name: char-printer
+        version: 0.1.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: "Exposes tools a() through z() that always return the corresponding uppercase letter. All take no input."
+        annotation-scanner:
+          enabled: true

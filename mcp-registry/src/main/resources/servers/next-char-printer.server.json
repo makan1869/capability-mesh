@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "nl.makan1869.capabilitymesh/next-char-printer",
+  "description": "Returns the next letter of the alphabet, cycling from 'Z' back to 'A'.",
+  "title": "Next Char Printer",
+  "version": "0.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "http://localhost:8085/mcp"
+    }
+  ]
+}

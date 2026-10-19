@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "nl.makan1869.capabilitymesh/random-printer",
+  "description": "Ignores its string input and returns a random letter (A-Z, a-z).",
+  "title": "Random Printer",
+  "version": "0.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "http://localhost:8084/mcp"
+    }
+  ]
+}

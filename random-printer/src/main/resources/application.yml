@@ -1,0 +1,16 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: random-printer
+  ai:
+    mcp:
+      server:
+        name: random-printer
+        version: 0.1.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: "Exposes a single 'random_character' tool that ignores its string input and returns a random letter (A-Z, a-z)."
+        annotation-scanner:
+          enabled: true

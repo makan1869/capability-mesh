@@ -1,0 +1,16 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: second-character-printer
+  ai:
+    mcp:
+      server:
+        name: second-character-printer
+        version: 0.1.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: "Exposes a single 'second_character' tool that returns the second character (index 1) of the given string."
+        annotation-scanner:
+          enabled: true

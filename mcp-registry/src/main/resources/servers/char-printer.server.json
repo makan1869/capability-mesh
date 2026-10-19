@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "nl.makan1869.capabilitymesh/char-printer",
+  "description": "Exposes 26 no-input tools (a-z) that return the matching uppercase letter.",
+  "title": "Char Printer",
+  "version": "0.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "http://localhost:8082/mcp"
+    }
+  ]
+}
