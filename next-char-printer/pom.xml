@@ -23,6 +23,12 @@
         </dependency>
 
         <dependency>
+            <groupId>nl.makan1869.capabilitymesh</groupId>
+            <artifactId>registry-publisher</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>

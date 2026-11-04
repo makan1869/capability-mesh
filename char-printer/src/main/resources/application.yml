@@ -14,3 +14,10 @@ spring:
         instructions: "Exposes tools a() through z() that always return the corresponding uppercase letter. All take no input."
         annotation-scanner:
           enabled: true
+
+# Registers this server with the MCP registry on startup (see registry-publisher).
+capability-mesh:
+  registry:
+    url: ${MCP_REGISTRY_URL:http://localhost:8090}
+    title: Char Printer
+    description: "Exposes 26 no-input tools (a-z) that return the matching uppercase letter."

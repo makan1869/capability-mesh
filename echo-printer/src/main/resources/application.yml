@@ -14,3 +14,10 @@ spring:
         instructions: "Exposes a single 'echo' tool that returns the character it is given. Only accepts a single letter (a-z, A-Z) or digit (0-9)."
         annotation-scanner:
           enabled: true
+
+# Registers this server with the MCP registry on startup (see registry-publisher).
+capability-mesh:
+  registry:
+    url: ${MCP_REGISTRY_URL:http://localhost:8090}
+    title: Echo Printer
+    description: "Echoes back a letter or digit (a-z, A-Z, 0-9) it is given."

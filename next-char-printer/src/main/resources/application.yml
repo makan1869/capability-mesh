@@ -14,3 +14,10 @@ spring:
         instructions: "Exposes a single 'next_character' tool that returns the next letter of the alphabet, cycling from 'Z' back to 'A' (and 'z' back to 'a')."
         annotation-scanner:
           enabled: true
+
+# Registers this server with the MCP registry on startup (see registry-publisher).
+capability-mesh:
+  registry:
+    url: ${MCP_REGISTRY_URL:http://localhost:8090}
+    title: Next Char Printer
+    description: "Returns the next letter of the alphabet, cycling from 'Z' back to 'A'."

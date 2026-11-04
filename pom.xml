@@ -13,6 +13,7 @@
     <description>Parent project for a mesh of remote MCP server modules</description>
 
     <modules>
+        <module>registry-publisher</module>
         <module>echo-printer</module>
         <module>char-printer</module>
         <module>second-character-printer</module>

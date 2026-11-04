@@ -14,3 +14,10 @@ spring:
         instructions: "Exposes a single 'random_character' tool: takes a character, builds a 6-character string (5 random printable characters - letters, digits, and symbols - plus the given character, which always ends up at index 5), then returns the character at a random index from 0 to 5."
         annotation-scanner:
           enabled: true
+
+# Registers this server with the MCP registry on startup (see registry-publisher).
+capability-mesh:
+  registry:
+    url: ${MCP_REGISTRY_URL:http://localhost:8090}
+    title: Random Printer
+    description: "Builds a 6-char string (5 random + the given char at index 5); returns a char at index 0-5."
