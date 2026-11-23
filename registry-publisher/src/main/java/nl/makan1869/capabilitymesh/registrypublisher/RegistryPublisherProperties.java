@@ -8,13 +8,13 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
  *
  * The server's name, version and MCP endpoint are taken from spring.ai.mcp.server.*; the
  * registry name is {@code namespace + "/" + spring.ai.mcp.server.name}. The default namespace
- * is the only one an anonymous registry token (POST /v0/auth/none) may publish to.
+ * is the one an anonymous registry token (POST /v0/auth/none) may publish to.
  */
 @ConfigurationProperties(prefix = "capability-mesh.registry")
 public record RegistryPublisherProperties(
         @DefaultValue("true") boolean enabled,
         @DefaultValue("http://localhost:8090") String url,
-        @DefaultValue("io.modelcontextprotocol.anonymous") String namespace,
+        @DefaultValue("nl.makan1869.capabilitymesh") String namespace,
         String title,
         String description,
         @DefaultValue("localhost") String advertisedHost) {

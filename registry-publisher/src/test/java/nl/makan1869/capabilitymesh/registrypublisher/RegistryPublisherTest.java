@@ -23,7 +23,7 @@ class RegistryPublisherTest {
 
     private static final String REGISTRY = "http://registry.test";
     private static final String VERSION_URL =
-            REGISTRY + "/v0.1/servers/io.modelcontextprotocol.anonymous%2Fchar-printer/versions/0.1.0";
+            REGISTRY + "/v0.1/servers/nl.makan1869.capabilitymesh%2Fchar-printer/versions/0.1.0";
 
     private MockRestServiceServer server;
     private RegistryPublisher publisher;
@@ -38,7 +38,7 @@ class RegistryPublisherTest {
                 .withProperty("spring.ai.mcp.server.version", "0.1.0")
                 .withProperty("local.server.port", "8082");
         RegistryPublisherProperties properties = new RegistryPublisherProperties(
-                true, REGISTRY, "io.modelcontextprotocol.anonymous", "Char Printer", "Prints chars.", "localhost");
+                true, REGISTRY, "nl.makan1869.capabilitymesh", "Char Printer", "Prints chars.", "localhost");
         publisher = new RegistryPublisher(builder.build(), properties, environment);
     }
 
@@ -48,7 +48,7 @@ class RegistryPublisherTest {
 
         assertThat(serverJson)
                 .containsEntry("$schema", RegistryPublisher.SCHEMA_URL)
-                .containsEntry("name", "io.modelcontextprotocol.anonymous/char-printer")
+                .containsEntry("name", "nl.makan1869.capabilitymesh/char-printer")
                 .containsEntry("title", "Char Printer")
                 .containsEntry("description", "Prints chars.")
                 .containsEntry("version", "0.1.0");
@@ -63,7 +63,7 @@ class RegistryPublisherTest {
         server.expect(requestTo(REGISTRY + "/v0.1/publish"))
                 .andExpect(method(HttpMethod.POST))
                 .andExpect(header("Authorization", "Bearer tok"))
-                .andExpect(jsonPath("$.name").value("io.modelcontextprotocol.anonymous/char-printer"))
+                .andExpect(jsonPath("$.name").value("nl.makan1869.capabilitymesh/char-printer"))
                 .andExpect(jsonPath("$.remotes[0].url").value("http://localhost:8082/mcp"))
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
